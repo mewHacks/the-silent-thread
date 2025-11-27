@@ -309,7 +309,7 @@ export const STORY_NODES: Record<string, StoryNode> = {
     id: 'death_shadow',
     text: "The shadow consumes your memories. You forget who you are. The loop restarts.",
     finalScreenText: "STATUS: DECEASED\nMEMORY: CONSUMED",
-    image: IMG_SHADOW,
+    image: IMG_VOID,
     options: [
        { text: "Wake up.", nextId: 'start' }
     ]
@@ -385,7 +385,7 @@ export const STORY_NODES: Record<string, StoryNode> = {
   'gear_climb': {
     id: 'gear_climb',
     text: "The oil is slippery. One slip means being crushed. The Listener is hunting you.",
-    image: IMG_FACTORY,
+    image: IMG_CREATURE,
     options: [],
     diceChallenge: {
       target: 10,
@@ -577,7 +577,7 @@ export const STORY_NODES: Record<string, StoryNode> = {
     id: 'ending_bad',
     text: "You surrender. She weaves you back into the tapestry. You are safe, you are happy, and you are trapped forever.",
     finalScreenText: "STATUS: ASSIMILATED\nMEMORY: ERADICATED\nLOOP: CONTINUING",
-    image: IMG_WARD,
+    image: IMG_VOID,
     options: []
   },
   'ending_neutral': {
