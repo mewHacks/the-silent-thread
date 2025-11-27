@@ -565,7 +565,6 @@ export const STORY_NODES: Record<string, StoryNode> = {
     id: 'true_ending_decision',
     text: "You present the Metal Shard, the Personnel File, and the Burnt Canvas. The Seamstress screams as her fabrication unravels. The threads holding the nightmare together snap.",
     image: IMG_LOOM,
-    effect: 'flash',
     options: [
       { text: "Cut the final thread.", nextId: 'ending_good' },
       { text: "Take her place at the Loom.", nextId: 'ending_successor' }

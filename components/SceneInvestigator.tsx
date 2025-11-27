@@ -1,7 +1,6 @@
-
 /// <reference lib="dom" />
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, ArrowLeft, Eye, Lock, Zap, Disc } from 'lucide-react';
+import { Search, ArrowLeft, Eye, Lock } from 'lucide-react';
 import { InvestigationNode, Hotspot } from '../types';
 import { SOUNDS } from '../constants';
 
@@ -18,13 +17,23 @@ const SceneInvestigator: React.FC<SceneInvestigatorProps> = ({ node, onExit, onI
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [foundHotspots, setFoundHotspots] = useState<string[]>([]);
   const [hoveredHotspot, setHoveredHotspot] = useState<string | null>(null);
+  const [narrativeText, setNarrativeText] = useState<string>("");
+
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Clear narrative after a few seconds
+  useEffect(() => {
+    if (!narrativeText) return;
+    const timer = setTimeout(() => setNarrativeText(""), 2000);
+    return () => clearTimeout(timer);
+  }, [narrativeText]);
+
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
     const { clientWidth, clientHeight } = containerRef.current;
-    const x = (e.clientX / clientWidth - 0.5) * 2; // -1 to 1
-    const y = (e.clientY / clientHeight - 0.5) * 2; // -1 to 1
+    const x = (e.clientX / clientWidth - 0.5) * 2; 
+    const y = (e.clientY / clientHeight - 0.5) * 2;
     setMousePos({ x, y });
   };
 
@@ -33,23 +42,30 @@ const SceneInvestigator: React.FC<SceneInvestigatorProps> = ({ node, onExit, onI
 
     if (hotspot.requiredItem && !inventory.includes(hotspot.requiredItem)) {
       playSfx(SOUNDS.FAILURE);
-      // Logic to show "locked" feedback could go here
       return;
     }
 
     playSfx(SOUNDS.CLICK);
-    
+
+    // Puzzle
     if (hotspot.puzzleId) {
-        onPuzzleTrigger(hotspot.puzzleId);
-    } else if (hotspot.itemReward) {
-        playSfx(SOUNDS.ITEM_GET);
-        setFoundHotspots(prev => [...prev, hotspot.id]);
-        onItemFound(hotspot.itemReward, hotspot.description);
-    } else {
-        // Just flavor text interaction
-         setFoundHotspots(prev => [...prev, hotspot.id]);
-         onItemFound("", hotspot.onInteractText || hotspot.description);
+      onPuzzleTrigger(hotspot.puzzleId);
+      return;
     }
+
+    // Item reward
+    if (hotspot.itemReward) {
+      playSfx(SOUNDS.ITEM_GET);
+      setFoundHotspots(prev => [...prev, hotspot.id]);
+      onItemFound(hotspot.itemReward, hotspot.description);
+      return;
+    }
+
+    // Show narrative toast
+    const flavor = hotspot.onInteractText || hotspot.description;
+    setFoundHotspots(prev => [...prev, hotspot.id]);
+    setNarrativeText(flavor);   
+    return;
   };
 
   return (
@@ -67,10 +83,10 @@ const SceneInvestigator: React.FC<SceneInvestigatorProps> = ({ node, onExit, onI
         }}
       />
       
-      {/* Vignette Overlay */}
+      {/* Vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_40%,rgba(0,0,0,0.8)_100%)] pointer-events-none" />
 
-      {/* UI Overlay - Moved to Bottom Left to avoid HUD overlap */}
+      {/* UI Overlay */}
       <div className="absolute bottom-8 left-8 pointer-events-none z-40 max-w-md">
           <div className="bg-black/70 backdrop-blur-md border-l-2 border-cyan-500 p-6 animate-in slide-in-from-left duration-500 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
               <h3 className="text-cyan-400 font-mono text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
@@ -80,6 +96,7 @@ const SceneInvestigator: React.FC<SceneInvestigatorProps> = ({ node, onExit, onI
           </div>
       </div>
 
+      {/* Exit Button */}
       <div className="absolute bottom-8 right-8 pointer-events-auto z-40">
           <button 
             onClick={() => { playSfx(SOUNDS.CLICK); onExit(); }}
@@ -92,7 +109,7 @@ const SceneInvestigator: React.FC<SceneInvestigatorProps> = ({ node, onExit, onI
 
       {/* Hotspots */}
       {node.hotspots.map(spot => {
-        if (foundHotspots.includes(spot.id) && spot.itemReward) return null; // Hide collected items
+        if (foundHotspots.includes(spot.id) && spot.itemReward) return null;
 
         return (
             <div
@@ -106,10 +123,9 @@ const SceneInvestigator: React.FC<SceneInvestigatorProps> = ({ node, onExit, onI
                     top: `${spot.y}%`,
                     width: `${spot.width}%`,
                     height: `${spot.height}%`,
-                    transform: `translate(${-mousePos.x * 30}px, ${-mousePos.y * 30}px)` // More parallax for foreground items
+                    transform: `translate(${-mousePos.x * 30}px, ${-mousePos.y * 30}px)`
                 }}
             >
-                {/* Visual indicator on hover (subtle distortion) */}
                 <div className={`w-full h-full border border-cyan-500/0 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all duration-500 rounded-full ${hoveredHotspot === spot.id ? 'scale-110' : 'scale-100'}`}>
                     {hoveredHotspot === spot.id && (
                         <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black/80 text-cyan-200 text-[10px] uppercase tracking-widest px-2 py-1 whitespace-nowrap border border-cyan-900 shadow-lg pointer-events-none">
@@ -120,6 +136,15 @@ const SceneInvestigator: React.FC<SceneInvestigatorProps> = ({ node, onExit, onI
             </div>
         );
       })}
+
+      {/* Narrative Toast */}
+      {narrativeText && (
+        <div className="absolute bottom-0 left-0 right-0 z-50 py-4 px-8 bg-black/80 backdrop-blur-md border-t border-cyan-900 animate-in fade-in duration-300">
+          <p className="text-stone-200 text-center font-serif text-lg italic">
+            {narrativeText}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
