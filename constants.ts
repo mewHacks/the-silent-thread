@@ -1,13 +1,13 @@
 
 import { StoryNode, ItemDetails, InvestigationNode, PuzzleConfig } from './types';
-import { Key, Scissors, FileText, Image, PenTool, Flame, Skull, Link, Hash, Zap, Disc, FlaskConical } from 'lucide-react';
+import { Key, Scissors, FileText, Image, PenTool, Flame, Skull, Link, Hash, Zap, Disc, FlaskConical, SlashIcon, BarcodeIcon, Ghost, SlashSquare, BlendIcon } from 'lucide-react';
 
 export const GAME_TITLE = "THE SILENT THREAD";
 
 // --- ASSETS ---
 
 // Images (Backgrounds & Scenes) -> ../images/
-export const IMG_WARD = "../images/ward.png";
+const IMG_WARD = "../images/ward.png";
 const IMG_HALL = "../images/hall.png";
 const IMG_FACTORY = "../images/factory.png";
 const IMG_OFFICE = "../images/office.png";
@@ -19,6 +19,7 @@ const IMG_SHADOW = "../images/shadow.png";
 const IMG_CREATURE = "../images/creature.png";
 const IMG_THREAD = "../images/thread.png";
 const IMG_VOID = "../images/void.png";
+const IMG_FIELD = "../images/field.png";
 
 // Video Clips -> ../videos/
 export const VIDEOS = {
@@ -56,7 +57,7 @@ export const ITEMS_DB: Record<string, ItemDetails> = {
   "Metal Shard": {
     name: "Metal Shard",
     description: "A jagged piece of rusted iron found under a pillow. It vibrates near the Seamstress.",
-    icon: Scissors
+    icon: SlashSquare
   },
   "Old Key": {
     name: "Old Key",
@@ -96,7 +97,7 @@ export const ITEMS_DB: Record<string, ItemDetails> = {
   "Patient Wristband": {
       name: "Patient Wristband",
       description: "A plastic band. Name: UNKNOWN. ID: 089.",
-      icon: Hash
+      icon: BlendIcon
   },
   "Mechanic's Fuse": {
       name: "Mechanic's Fuse",
@@ -111,7 +112,7 @@ export const ITEMS_DB: Record<string, ItemDetails> = {
   "Doll": {
       name: "Creepy Doll",
       description: "Its eyes follow you. A remnant of a forgotten childhood.",
-      icon: Skull
+      icon: Ghost
   }
 };
 
@@ -148,25 +149,24 @@ export const INVESTIGATION_NODES: Record<string, InvestigationNode> = {
         hotspots: [
             {
                 id: 'bed_pillow',
-                x: 30, y: 65, width: 20, height: 15,
+                x: 21, y: 45, width: 20, height: 15,
                 itemReward: "Metal Shard",
                 description: "You lift the pillow. A jagged Metal Shard lies there, pulsing."
             },
             {
                 id: 'floor_debris',
-                x: 60, y: 80, width: 15, height: 10,
+                x: 65, y: 82, width: 15, height: 10,
                 itemReward: "Patient Wristband",
                 description: "A discarded plastic wristband in the dust. It reads: ID 089."
             },
             {
                 id: 'cabinet',
-                x: 75, y: 40, width: 15, height: 40,
+                x: 82, y: 18, width: 15, height: 40,
                 description: "Empty medical supplies. Just mothballs and rust."
             },
             {
                 id: 'hidden_doll',
-                // Moved slightly up and right to avoid UI overlap (UI is at bottom-left)
-                x: 15, y: 80, width: 8, height: 10,
+                x: 8, y: 75, width: 8, height: 10,
                 itemReward: "Doll",
                 description: "A small doll hidden in the shadows. It blinks at you."
             }
@@ -180,25 +180,25 @@ export const INVESTIGATION_NODES: Record<string, InvestigationNode> = {
         hotspots: [
             {
                 id: 'desk_drawer',
-                x: 45, y: 60, width: 20, height: 10,
+                x: 42, y: 70, width: 20, height: 10,
                 itemReward: "Old Key",
                 description: "Hidden in the false bottom of the drawer: an Old Key."
             },
             {
                 id: 'cabinet_locked',
-                x: 85, y: 30, width: 12, height: 50,
+                x: 90, y: 42, width: 12, height: 28,
                 puzzleId: 'office_safe',
                 description: "It's locked electronically. It needs a 3-digit Patient ID."
             },
             {
                 id: 'wall_panel',
-                x: 10, y: 40, width: 15, height: 15,
+                x: 8, y: 20, width: 15, height: 15,
                 puzzleId: 'factory_circuit',
                 description: "A sparking fuse box panel. Looks like a logic gate mechanism."
             },
             {
                 id: 'notice_board',
-                x: 20, y: 30, width: 20, height: 20,
+                x: 56, y: 10, width: 20, height: 20,
                 description: "Notices about 'Production Quotas'. They weren't making paper... they were processing memories."
             }
         ]
@@ -211,12 +211,12 @@ export const INVESTIGATION_NODES: Record<string, InvestigationNode> = {
         hotspots: [
              {
                 id: 'main_portrait',
-                x: 50, y: 40, width: 30, height: 40,
+                x: 40, y: 18, width: 20, height: 55,
                 description: "The Seamstress... she looks sad. The paint is warm to the touch."
             },
             {
                 id: 'hidden_niche',
-                x: 80, y: 50, width: 10, height: 20,
+                x: 85, y: 20, width: 5, height: 10,
                 itemReward: "Strange Vial",
                 description: "A loose frame reveals a hidden compartment. A vial of dark liquid sits inside."
             }
@@ -230,13 +230,13 @@ export const INVESTIGATION_NODES: Record<string, InvestigationNode> = {
         hotspots: [
             {
                 id: 'rune_seal',
-                x: 50, y: 50, width: 40, height: 40,
+                x: 37, y: 25, width: 25, height: 55,
                 puzzleId: 'tower_rune',
                 description: "The mechanism is locked. Align the Ley Lines to proceed."
             },
             {
                 id: 'wall_scratching',
-                x: 20, y: 70, width: 15, height: 15,
+                x: 2, y: 55, width: 20, height: 30,
                 description: "Scratched into the stone: 'North, Southwest, East'."
             }
         ]
@@ -584,7 +584,7 @@ export const STORY_NODES: Record<string, StoryNode> = {
     id: 'ending_neutral',
     text: "You cut the thread and jump from the tower. You wake up in a field, alive. But you remember nothing of who you are.",
     finalScreenText: "STATUS: SURVIVOR\nMEMORY: LOST\nIDENTITY: UNKNOWN",
-    image: IMG_HALL,
+    image: IMG_FIELD,
     options: []
   },
   'ending_good': {

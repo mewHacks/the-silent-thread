@@ -401,10 +401,10 @@ function App() {
   );
 
   const renderGameOver = () => (
-    <div className="flex flex-col items-center justify-center h-full z-20 relative bg-black/95 backdrop-blur-sm animate-in zoom-in duration-500 text-center p-8">
+    <div className="flex flex-col items-center justify-center h-full z-20 relative bg-black/60 backdrop-blur-sm animate-in zoom-in duration-500 text-center p-8">
       <Skull size={100} className="text-stone-800 mb-8 animate-pulse drop-shadow-[0_0_20px_rgba(255,0,0,0.2)]" />
       <h1 className="text-7xl font-serif text-stone-600 mb-6 tracking-widest uppercase text-flicker">Memory Erasure</h1>
-      {/* REDUNDANCY FIX: Use victoryText (Status Summary) instead of full story text */}
+
       <div className="text-stone-400 font-mono mb-12 max-w-md mx-auto leading-relaxed border-l-2 border-red-900/50 pl-4 text-left whitespace-pre-wrap">
         {currentNode.finalScreenText || "STATUS: FAILED"}
       </div>
@@ -432,7 +432,7 @@ function App() {
       }
 
       return (
-        <div className="flex flex-col items-center justify-center h-full z-20 relative bg-black/90 backdrop-blur-sm animate-in zoom-in duration-1000 text-center p-8">
+        <div className="flex flex-col items-center justify-center h-full z-20 relative bg-black/60 backdrop-blur-sm animate-in zoom-in duration-1000 text-center p-8">
         <Trophy size={100} className={`${color} mb-8 drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]`} />
         <h1 className={`text-7xl font-serif ${color} mb-6 tracking-widest text-flicker`}>{title}</h1>
         {/* REDUNDANCY FIX: Use victoryText (Status Summary) instead of full story text */}
