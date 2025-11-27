@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Silent Thread</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%23ffffff'><path d='M5 50 C 30 25, 70 25, 95 50 C 70 75, 30 75, 5 50 Z' fill='%23000' stroke-width='2'/><path d='M50 38 L62 50 L50 62 L38 50 Z' fill='%23ffffff' stroke='none'/><path d='M84 16 C110 -10, 110 60, 80 85 C55 105, 10 90, 10 50 C10 20, 40 10, 60 25 C70 30, 75 45, 50 60' stroke='%23ffffff' stroke-width='2'/><path d='M84 16 C85 10, 90 10, 95 5' stroke='%23ffffff' stroke-width='1'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+      body {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0c0a09; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #292524; 
+        border-radius: 3px;
+      }
+      
+      /* CRT Scanline Effect */
+      .scanlines {
+        background: linear-gradient(
+          to bottom,
+          rgba(255,255,255,0),
+          rgba(255,255,255,0) 50%,
+          rgba(0,0,0,0.1) 50%,
+          rgba(0,0,0,0.1)
+        );
+        background-size: 100% 4px;
+        position: absolute;
+        top: 0; 
+        left: 0; 
+        right: 0; 
+        bottom: 0;
+        pointer-events: none;
+        z-index: 50;
+      }
+      
+      .flicker {
+        animation: flicker 0.15s infinite;
+      }
+
+      @keyframes flicker {
+        0% { opacity: 0.95; }
+        50% { opacity: 1; }
+        100% { opacity: 0.98; }
+      }
+
+      /* Text Flicker specific for UI horror elements */
+      /* REDUCED BLUR: Fixed garbled text issue by lowering blur from 8px to 2px */
+      .text-flicker {
+        animation: textFlicker 4s infinite;
+      }
+
+      @keyframes textFlicker {
+        0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+          opacity: 1;
+          text-shadow: 0 0 0 transparent;
+        }
+        20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+          opacity: 0.8;
+          text-shadow: 0 0 2px rgba(255, 0, 0, 0.4); 
+        }
+      }
+
+      /* Cinematic Horror Text Shadow */
+      .text-shadow-horror {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.6);
+      }
+
+      /* Screen Shake */
+      .shake {
+        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+      }
+
+      @keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+      }
+
+      .heartbeat {
+        animation: heartbeat 1.5s ease-in-out infinite both;
+      }
+
+      @keyframes heartbeat {
+        0% { transform: scale(1); }
+        15% { transform: scale(1.02); }
+        30% { transform: scale(1); }
+        45% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+      }
+
+      /* Fog Animation */
+      .fog-layer {
+        position: absolute;
+        top: 0; left: 0; height: 100%; width: 200%;
+        background: url('/THE_SILENT_THREAD/images/fog1.png') repeat-x;
+        background-size: cover;
+        opacity: 0.4;
+        animation: fogMove 60s linear infinite;
+        pointer-events: none;
+      }
+      .fog-layer-2 {
+        background: url('/THE_SILENT_THREAD/images/fog2.png') repeat-x;
+        background-size: cover;
+        animation: fogMove 40s linear infinite reverse;
+        opacity: 0.2;
+      }
+
+      @keyframes fogMove {
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-50%, 0, 0); }
+      }
+
+      /* Glitch Loading Bar */
+      .glitch-bar {
+        position: relative;
+        overflow: hidden;
+      }
+      .glitch-bar::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transform: translateX(-100%);
+        animation: shimmer 1s infinite;
+      }
+      @keyframes shimmer {
+        100% { transform: translateX(100%); }
+      } 
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "dom": "https://aistudiocdn.com/dom@^0.0.3",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+  }
+}
+</script>
+
+<link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="bg-black text-stone-200 overflow-hidden h-screen w-screen selection:bg-cyan-900 selection:text-cyan-100">
+  <div class="glitch-bar h-1 bg-cyan-400"></div>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
