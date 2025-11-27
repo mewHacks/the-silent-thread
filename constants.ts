@@ -1,53 +1,54 @@
 
 import { StoryNode, ItemDetails, InvestigationNode, PuzzleConfig } from './types';
-import { Key, Scissors, FileText, Image, PenTool, Flame, Skull, Link, Hash, Zap, Disc, FlaskConical, SlashIcon, BarcodeIcon, Ghost, SlashSquare, BlendIcon } from 'lucide-react';
+import { Key, FileText, Image, PenTool, Flame, Zap, Disc, FlaskConical, Ghost, SlashSquare, BlendIcon } from 'lucide-react';
 
 export const GAME_TITLE = "THE SILENT THREAD";
 
 // --- ASSETS ---
 
-// Images (Backgrounds & Scenes) -> ../images/
-const IMG_WARD = "../images/ward.png";
-const IMG_HALL = "../images/hall.png";
-const IMG_FACTORY = "../images/factory.png";
-const IMG_OFFICE = "../images/office.png";
-const IMG_CRAWLSPACE = "../images/crawlspace.png"; 
-const IMG_PORTRAIT = "../images/portrait.png"; 
-const IMG_TOWER = "../images/tower.png"; 
-const IMG_LOOM = "../images/loom.png"; 
-const IMG_SHADOW = "../images/shadow.png";
-const IMG_CREATURE = "../images/creature.png";
-const IMG_THREAD = "../images/thread.png";
-const IMG_VOID = "../images/void.png";
-const IMG_FIELD = "../images/field.png";
+// Images
+export const IMG_WARD = "/images/ward.png";
+export const IMG_HALL = "/images/hall.png";
+export const IMG_FACTORY = "/images/factory.png";
+export const IMG_OFFICE = "/images/office.png";
+export const IMG_CRAWLSPACE = "/images/crawlspace.png"; 
+export const IMG_PORTRAIT = "/images/portrait.png"; 
+export const IMG_TOWER = "/images/tower.png"; 
+export const IMG_LOOM = "/images/loom.png"; 
+export const IMG_SHADOW = "/images/shadow.png";
+export const IMG_CREATURE = "/images/creature.png";
+export const IMG_THREAD = "/images/thread.png";
+export const IMG_VOID = "/images/void.png";
+export const IMG_FIELD = "/images/field.png";
 
-// Video Clips -> ../videos/
+// Video Clips
 export const VIDEOS = {
-  INTRO: "../videos/intro.mp4",
-  ENDING_BAD: "../videos/ending_bad.mp4",
-  ENDING_NEUTRAL: "../videos/ending_neutral.mp4",
-  ENDING_TRUE: "../videos/ending_true.mp4",
-  ENDING_SHADOW: "../videos/ending_shadow.mp4",
-  ENDING_SUCCESSOR: "../videos/ending_successor.mp4"
+  INTRO: "/videos/intro.mp4",
+  ENDING_BAD: "/videos/ending_bad.mp4",
+  ENDING_NEUTRAL: "/videos/ending_neutral.mp4",
+  ENDING_TRUE: "/videos/ending_true.mp4",
+  ENDING_SHADOW: "/videos/ending_shadow.mp4",
+  ENDING_SUCCESSOR: "/videos/ending_successor.mp4"
 };
 
-// Audio -> ../audio/sfx/ OR ../audio/voice/
+// Audio
 export const SOUNDS = {
-  BGM: "../audio/sfx/dark_ambient.mp3", 
-  CLICK: "../audio/sfx/click.mp3", 
-  HOVER: "../audio/sfx/hover.mp3", 
-  HEARTBEAT: "../audio/sfx/heartbeat.mp3",
-  DICE_ROLL: "../audio/sfx/dice_roll.mp3",
-  SUCCESS: "../audio/sfx/success.mp3",
-  FAILURE: "../audio/sfx/failure.mp3", 
-  ITEM_GET: "../audio/sfx/item_get.mp3" 
+  BGM: "/audio/sfx/dark_ambient.mp3", 
+  CLICK: "/audio/sfx/click.mp3", 
+  HOVER: "/audio/sfx/hover.mp3", 
+  HEARTBEAT: "/audio/sfx/heartbeat.mp3",
+  DICE_ROLL: "/audio/sfx/dice_roll.mp3",
+  SUCCESS: "/audio/sfx/success.mp3",
+  FAILURE: "/audio/sfx/failure.mp3", 
+  ITEM_GET: "/audio/sfx/item_get.mp3" 
 };
 
 export const VOICE_CLIPS = {
-    INTRO: "../audio/voice/intro_whisper.mp3",
-    SEAMSTRESS_LAUGH: "../audio/voice/seamstress_laugh.mp3",
-    HEARTBEAT_FAST: "../audio/voice/heartbeat_fast.wav"
+  INTRO: "/audio/voice/intro_whisper.mp3",
+  SEAMSTRESS_LAUGH: "/audio/voice/seamstress_laugh.mp3",
+  HEARTBEAT_FAST: "/audio/voice/heartbeat_fast.wav"
 };
+
 
 // --- DATA ---
 
