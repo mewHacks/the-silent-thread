@@ -89,11 +89,6 @@ export const ITEMS_DB: Record<string, ItemDetails> = {
       description: "A small bottle of viscous black liquid. It whispers when shaken.",
       icon: FlaskConical
   },
-  "Rusted Chain": {
-      name: "Rusted Chain",
-      description: "Heavy and cold. Useful for binding things... or entities.",
-      icon: Link
-  },
   "Patient Wristband": {
       name: "Patient Wristband",
       description: "A plastic band. Name: UNKNOWN. ID: 089.",
