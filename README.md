@@ -32,4 +32,4 @@
 
 ```bash
 git clone https://github.com/mewHacks/the-silent-thread.git
-cd <repo>
+cd the-silent-thread
